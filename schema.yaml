@@ -1,0 +1,86 @@
+## Copyright © 2024, Oracle and/or its affiliates. 
+## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
+
+title: "Deploy A100 shape with GPU"
+stackDescription: "Deploy A100 shape with GPU"
+schemaVersion: 1.1.0
+version: "20190404"
+locale: "en"
+
+variableGroups:
+- title: General Configuration
+  visible: false
+  variables:
+  - tenancy_ocid
+  - region
+  
+  
+- title: Required Configuration
+  visible: true  
+  variables:
+  - compartment_ocid
+  - vcn_id
+  - subnet_id
+  - vm_display_name
+  - ssh_public_key
+  - ad
+  - bucket_namespace
+variables:
+  
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    required: true
+    visibile: true
+    title: "Compartment"
+    description: "Choose compartment where you want to deploy the GPU VM"
+
+  vcn_id:
+    type: oci:core:vcn:id
+    title: "VCN"
+    description: "The VCN where will deploy the resources"
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    required: true
+
+  subnet_id:
+    type: oci:core:subnet:id
+    title: "Subnet"
+    description: "The Subnet where will deploy the resource"
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+      vcnId: ${vcn_id}
+    required: true
+
+  vm_display_name:
+    type: string
+    required: true
+    visibile: true
+    title: "vm display name"
+    description: "VM display name"
+
+  ssh_public_key:
+    type: string
+    title: "Public SSH Key"
+    description: "Choose public SSH Key to be uploaded into compute instances."
+    required: true
+
+  bucket_namespace:
+    type: string
+    title: "Bucket namespace"
+    description: "Choose namespace for object storage bucket"
+    required: true
+  ad:
+    type: oci:identity:availabilitydomain:name
+    title: "availability domain"
+    description: "Choose availability domain"
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    required: true
+
+
+  
+  
+  
+
+
+  
