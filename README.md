@@ -1,4 +1,4 @@
-# orm_stack_a100_gpu
+# orm-stack-credit-risk-assesment
 ORM stack code for deployment of A100 shape where to run jupyter notebooks for credit risk assessment
 
 
